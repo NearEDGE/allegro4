@@ -310,6 +310,7 @@ void gfx_directx_sync(void)
 
 
 
+
 /* gfx_directx_exit:
  */
 void gfx_directx_exit(struct BITMAP *bmp)
@@ -352,15 +353,24 @@ void gfx_directx_exit(struct BITMAP *bmp)
       pseudo_surf_mem = NULL;
    }
 
-   /* before restoring video mode, hide window */
-   set_display_switch_mode(SWITCH_PAUSE);
-   system_driver->restore_console_state();
-   restore_window_style();
+   // This fixes a problem using MSVC where Allegro's exit procedure causes an indefinite hang
+   //   or access violation while using the window sub-system. A scenario in which there is no
+   //   console to restore.
 
-   /* let the window thread set the coop level back
-    * to normal and destroy the directdraw object
-    */
-   wnd_call_proc(exit_directx);
+   int using_console_subsystem = GetConsoleWindow() != NULL;
+
+   if (using_console_subsystem)
+   {
+       /* before restoring video mode, hide window */
+       set_display_switch_mode(SWITCH_PAUSE);
+       system_driver->restore_console_state();
+       restore_window_style();
+
+       /* let the window thread set the coop level back
+        * to normal and destroy the directdraw object
+        */
+       wnd_call_proc(exit_directx);
+   }
 
    _exit_critical();
 }
