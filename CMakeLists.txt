@@ -809,24 +809,24 @@ set_target_properties(allegro
     SOVERSION ${ALLEGRO_SOVERSION}
     )
 
-if(WIN32)
-    if(SHARED)
-        # Make mingw not add lib prefix to DLL, to match MSVC.
-        set_target_properties(allegro
-            PROPERTIES
-            PREFIX ""
-            )
-    else(SHARED)
-        # Add a -static postfix on the main library for Windows.
-        # In earlier versions of Allegro this was "_s".
-        set_target_properties(allegro
-            PROPERTIES
-            POSTFIX "-static"
-            DEBUG_POSTFIX "-debug-static"
-            PROFILE_POSTFIX "-profile-static"
-            )
-    endif(SHARED)
-endif(WIN32)
+#if(WIN32)
+#    if(SHARED)
+#        # Make mingw not add lib prefix to DLL, to match MSVC.
+#        set_target_properties(allegro
+#            PROPERTIES
+#            PREFIX ""
+#            )
+#    else(SHARED)
+#        # Add a -static postfix on the main library for Windows.
+#        # In earlier versions of Allegro this was "_s".
+#        set_target_properties(allegro
+#            PROPERTIES
+#            POSTFIX "-static"
+#            DEBUG_POSTFIX "-debug-static"
+#            PROFILE_POSTFIX "-profile-static"
+#            )
+#    endif(SHARED)
+#endif(WIN32)
 
 set_our_framework_properties(allegro Allegro)
 

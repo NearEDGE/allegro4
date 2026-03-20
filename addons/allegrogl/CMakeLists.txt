@@ -158,6 +158,13 @@ set_target_properties(allegrogl
     static_link_with "${static_link_with}"
     )
 
+    if(BUILD_SHARED_LIBS)
+    target_compile_definitions(allegrogl PRIVATE
+        ALLEGRO_GL_DYNAMIC
+        ALLEGRO_GL_SRC_BUILD
+    )
+endif()
+
 install_our_library(allegrogl)
 if(NOT WANT_FRAMEWORKS)
     install_our_headers(${ALLEGROGL_HEADERS})

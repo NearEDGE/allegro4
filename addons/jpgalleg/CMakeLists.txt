@@ -53,6 +53,13 @@ set_target_properties(jpgalleg
     static_link_with ""
     )
 
+if(BUILD_SHARED_LIBS)
+    target_compile_definitions(jpgalleg PRIVATE
+        JPGALLEG_DYNAMIC
+        JPGALLEG_SRC_BUILD
+    )
+endif(BUILD_SHARED_LIBS)
+
 install_our_library(jpgalleg)
 if(NOT WANT_FRAMEWORKS)
     install_our_headers(${JPGALLEG_HEADERS})

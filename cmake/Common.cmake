@@ -1,11 +1,28 @@
 # For OS X frameworks to work you must add headers to the target's sources.
 function(add_our_library target)
     add_library(${target} ${ARGN})
-    set_target_properties(${target}
-        PROPERTIES
-        DEBUG_POSTFIX -debug
-        PROFILE_POSTFIX -profile
-        )
+    if(WIN32)
+        if(NOT SHARED)        
+            set_target_properties(${target}
+                PROPERTIES
+                POSTFIX "-static"
+                DEBUG_POSTFIX "-debug-static"
+                PROFILE_POSTFIX "-profile-static"
+                )
+        else(NOT SHARED)
+            set_target_properties(${target}
+                PROPERTIES
+                DEBUG_POSTFIX -debug
+                PROFILE_POSTFIX -profile
+                )
+        endif(NOT SHARED)
+    else(WIN32)
+        set_target_properties(${target}
+            PROPERTIES
+            DEBUG_POSTFIX -debug
+            PROFILE_POSTFIX -profile
+            )
+    endif(WIN32)
 endfunction(add_our_library)
 
 function(set_our_framework_properties target nm)

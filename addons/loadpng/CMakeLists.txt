@@ -52,6 +52,13 @@ set_target_properties(loadpng
     static_link_with "${static_link_with}"
     )
 
+if (BUILD_SHARED_LIBS)
+    target_compile_definitions(loadpng PRIVATE
+    LOADPNG_DYNAMIC
+    LOADPNG_SRC_BUILD
+    )   
+endif (BUILD_SHARED_LIBS)
+
 install_our_library(loadpng)
 if(NOT WANT_FRAMEWORKS)
     install_our_headers(${LOADPNG_HEADERS})
