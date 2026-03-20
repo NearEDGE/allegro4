@@ -12,9 +12,9 @@ This fork of Allegro 4.4.4 includes:
 
 When linking Allegro statically, also link these system libraries:
 
-> ddraw.lib
-> dxguid.lib
-> dinput8.lib
-> dsound.lib
-> winmm.lib
-> gdi32.lib
+ddraw.lib
+dxguid.lib
+dinput8.lib
+dsound.lib
+winmm.lib
+gdi32.lib
